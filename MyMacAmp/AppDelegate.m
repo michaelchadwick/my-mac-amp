@@ -56,7 +56,7 @@
 
   result = [oPanel runModal];
 
-  if (result == NSOKButton) {
+  if (result == NSModalResponseOK) {
     filesToOpen = [oPanel URLs];
     theNewFilePath = [filesToOpen objectAtIndex:0];
     NSLog(@"Sound file is now: %@", theNewFilePath);
@@ -123,7 +123,6 @@
 }
 - (void)updateElapsed {
   NSInteger curTimeInt = (NSInteger)audioFile.currentTime;
-  NSLog(@"%ld", (long)curTimeInt);
   NSInteger seconds = curTimeInt;
   NSInteger minutes = (curTimeInt / 60) % 60;
 
