@@ -38,7 +38,6 @@ enum AudioStatus {
 @property (weak) IBOutlet NSTextField *audioFileElapsedText;
 @property (weak) IBOutlet NSTextField *audioFileDurationText;
 
-
 @property (weak) IBOutlet NSButton *loopToggle;
 @property (weak) IBOutlet NSButton *resetButton;
 

@@ -139,20 +139,25 @@
   _progressSlider.maxValue = ti;
   [_progressSlider setIntegerValue:0];
 }
+- (void)updateLoopSetting {
+  if ([_loopToggle state] == NSOnState) {
+    audioFile.loops = YES;
+  } else audioFile.loops = NO;
+}
 
 #pragma mark - IB GUI Event Handlers
 - (IBAction)onPlayClick:(id)sender {
   if([audioFile isPlaying]) {
     [audioFile stop];
   }
-  if ([_loopToggle state] == NSOnState) {
-    audioFile.loops = YES;
-  } else audioFile.loops = NO;
+  [self updateLoopSetting];
+
+  timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateElapsed) userInfo:nil repeats:YES];
 
   [audioFile play];
   _audioStatus = AudioPlaying;
   [self.audioStatusText setStringValue:@"AudioPlaying"];
-  timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateElapsed) userInfo:nil repeats:YES];
+
   //[[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 - (IBAction)onPauseClick:(id)sender {
@@ -173,6 +178,10 @@
   [timer invalidate];
   timer = nil;
 }
+- (IBAction)onLoopToggle:(id)sender {
+  [self updateLoopSetting];
+}
+
 - (IBAction)onVolumeSliderChange:(id)sender {
   [audioFile setVolume:_volumeSlider.floatValue];
 }
